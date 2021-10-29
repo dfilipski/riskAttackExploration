@@ -7,4 +7,4 @@ Currently this project simulates a risk battle
 
 - [ ] Implement proper risk rules
 - [ ] Implement multiple battles and result analysis
-- [ ] Use multiple source files instead of a single giant one
+- [x] Use multiple source files instead of a single giant one

@@ -2,20 +2,13 @@
 // Created by Dan Filipski on 10/29/21.
 //
 
-#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "battle.h"
 
-enum player battle(int attacker_armies, int defender_armies, int attacker_die_count, int defender_die_count);
-
-void roll_dice(int *dice_array, int die_count);
-
-void print_int_array(int *array, int length);
-
-enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker_die_count, int defender_die_count);
-
-int find_max(const int *array, int length);
+typedef enum player {
+    ATTACKER, DEFENDER, TIE, ERROR
+} BattleOutcome;
 
 /**
  * Simulate a Battle
@@ -26,12 +19,11 @@ int find_max(const int *array, int length);
  * @return A Player variable containing the winner
  */
 enum player battle(int attacker_armies, int defender_armies, int attacker_die_count, int defender_die_count) {
-    if (attacker_armies < attacker_die_count + 1 || defender_armies < defender_die_count + 1)
+
+    if (attacker_armies < attacker_die_count + 1 ||
+        defender_armies < defender_die_count + 1)//not allowed by risk's rules
         return ERROR;
-    // Attacker roll 1-3 dice
-    // Defender rolls 1-2 dice
-    // Compare highest
-    //
+
     int attacker_dice[3], defender_dice[2];
     enum player winner;
 
