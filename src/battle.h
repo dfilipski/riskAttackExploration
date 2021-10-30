@@ -18,5 +18,8 @@ enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker
 
 int find_max(const int *array, int length);
 
+void simulate_war(int *win_array, int num_battles, int *pAttacker_armies, int *pDefender_armies, int attacker_die_count,
+                  int defender_die_count);
+
 
 #endif //RISKATTACKEXPLORATION_BATTLE_H

@@ -16,23 +16,21 @@ int main(void) {
     int defender_armies = 20;
     int defender_die_count = 2;
 
+    int num_battles = 50;
+
+    int win_stats[3];//{attacker_wins, defender_wins}
+
     srand(time(0)); // NOLINT(cert-msc51-cpp)
 
-    BattleOutcome winner = battle(&attacker_armies, &defender_armies, attacker_die_count, defender_die_count);
+    simulate_war(&win_stats[0], num_battles, &attacker_armies, &defender_armies, attacker_die_count,
+                 defender_die_count);
 
-    // Display Results
-
-    switch (winner) {
-        case ATTACKER:
-            printf("The attacker won the battle!\n");
-            break;
-        case DEFENDER:
-            printf("The defender won the battle!\n");
-            break;
-        default:
-            printf("An error has occurred. The battle option may be invalid");
-            break;
-    }
+    printf("╔════════════════════════╦════════════════════════════╗\n"
+           "║Attacker Wins: %8d ║ Attacker Win Rate: %8.4f║\n"
+           "╠════════════════════════╬════════════════════════════╣\n"
+           "║Defender Wins: %8d ║ Defender Win Rate: %8.4f║\n"
+           "╚════════════════════════╩════════════════════════════╝\n", win_stats[0], win_stats[0] / (double) win_stats[2],
+           win_stats[1], win_stats[1] / (double) win_stats[2]);
 
     return 0;
 }

@@ -2,6 +2,7 @@
 // Created by Dan Filipski on 10/29/21.
 //
 
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "battle.h"
@@ -105,6 +106,10 @@ enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker
         return DEFENDER;
 }
 
+void
+simulate_war(int *win_array, int num_battles, int *pAttacker_armies, int *pDefender_armies, int attacker_die_count,
+             int defender_die_count);
+
 /**
  * Return the maximum value of array
  * @param array A pointer to an array of at least one element
@@ -119,4 +124,46 @@ int find_max(const int *array, int length) {
     }
 
     return max_index;
+}
+
+/**
+ * Simulate num_battles battles and record results in Win Array.
+ * Index 0 is attacker wins. Index 1 is defender wins. Index 3
+ * is the total number of battles that occured, because one
+ * side may lose all their armies before num_battles battles
+ * have been completed.
+ * @param win_array A two element array
+ * @param num_battles The number of battles to simulate
+ * @param pAttacker_armies Address of the attacker's army count
+ * @param pDefender_armies Address of the defenders army count
+ * @param attacker_die_count Number of dice attacker rolls
+ * @param defender_die_count Number of dice defender rolls
+ */
+void
+simulate_war(int *win_array, int num_battles, int *pAttacker_armies, int *pDefender_armies, int attacker_die_count,
+             int defender_die_count) {
+    //Fill win_array with zeros
+    for (int i = 0; i < 2; i++) {
+        win_array[i] = 0;
+    }
+
+    //Simulate Battles
+    for (int i = 0; i < num_battles; i++) {
+        BattleOutcome winner = battle(pAttacker_armies, pDefender_armies, attacker_die_count, defender_die_count);
+
+        //record result
+        switch (winner) {
+            case ATTACKER:
+                win_array[0] += 1;
+                win_array[2] += 1;
+                break;
+            case DEFENDER:
+                win_array[1] += 1;
+                win_array[2] += 1;
+                break;
+            default: //Stop once parameters are invalid
+                return;
+        }
+    }
+
 }
