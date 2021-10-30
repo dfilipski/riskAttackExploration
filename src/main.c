@@ -33,6 +33,9 @@ int main(void) {
             printf("An error has occurred. The battle option may be invalid");
             break;
     }
+    printf("Armies\n"
+           "Attacker: %d\n"
+           "Defender: %d\n", attacker_armies, defender_armies);
 
     return 0;
 }

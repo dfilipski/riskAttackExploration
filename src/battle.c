@@ -38,9 +38,9 @@ BattleOutcome battle(int *attacker_armies, int *defender_armies, int attacker_di
 
     //Update army count, because the loser loses one army.
     if (winner == ATTACKER)
-        *defender_armies--;
+        *defender_armies -= 1;
     else if (winner == DEFENDER)
-        *attacker_armies--;
+        *attacker_armies -= 1;
 
     // return result
     return winner;
