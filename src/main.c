@@ -29,11 +29,9 @@ int main(void) {
         case DEFENDER:
             printf("The defender won the battle!\n");
             break;
-        case TIE:
-            printf("There was a tie!\n");
-            break;
         default:
             printf("An error has occurred. The battle option may be invalid");
+            break;
     }
 
     return 0;
