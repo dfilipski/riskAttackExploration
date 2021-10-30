@@ -2,7 +2,6 @@
 // Created by Dan Filipski on 10/29/21.
 //
 
-#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "battle.h"
@@ -105,10 +104,6 @@ enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker
     else
         return DEFENDER;
 }
-
-void
-simulate_war(int *win_array, int num_battles, int *pAttacker_armies, int *pDefender_armies, int attacker_die_count,
-             int defender_die_count);
 
 /**
  * Return the maximum value of array
