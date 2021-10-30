@@ -9,9 +9,6 @@
 #include <time.h>
 #include "battle.h"
 
-typedef enum player {
-    ATTACKER, DEFENDER, TIE, ERROR
-} BattleOutcome;
 
 int main(void) {
     const int ATTACKER_ARMIES = 20;

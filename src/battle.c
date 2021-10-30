@@ -6,10 +6,6 @@
 #include <stdio.h>
 #include "battle.h"
 
-typedef enum player {
-    ATTACKER, DEFENDER, TIE, ERROR
-} BattleOutcome;
-
 /**
  * Simulate a Battle
  * @param attacker_armies

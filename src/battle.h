@@ -4,6 +4,9 @@
 
 #ifndef RISKATTACKEXPLORATION_BATTLE_H
 #define RISKATTACKEXPLORATION_BATTLE_H
+typedef enum player {
+    ATTACKER, DEFENDER, TIE, ERROR
+} BattleOutcome;
 
 enum player battle(int attacker_armies, int defender_armies, int attacker_die_count, int defender_die_count);
 
