@@ -5,10 +5,10 @@
 #ifndef RISKATTACKEXPLORATION_BATTLE_H
 #define RISKATTACKEXPLORATION_BATTLE_H
 typedef enum player {
-    ATTACKER, DEFENDER, TIE, ERROR
+    ATTACKER, DEFENDER, ERROR
 } BattleOutcome;
 
-enum player battle(int attacker_armies, int defender_armies, int attacker_die_count, int defender_die_count);
+BattleOutcome battle(int *attacker_armies, int *defender_armies, int attacker_die_count, int defender_die_count);
 
 void roll_dice(int *dice_array, int die_count);
 

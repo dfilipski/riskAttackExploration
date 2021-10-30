@@ -11,14 +11,14 @@
 
 
 int main(void) {
-    const int ATTACKER_ARMIES = 20;
-    const int ATTACKER_DIE_COUNT = 3;
-    const int DEFENDER_ARMIES = 20;
-    const int DEFENDER_DIE_COUNT = 2;
+    int attacker_armies = 20;
+    int attacker_die_count = 3;
+    int defender_armies = 20;
+    int defender_die_count = 2;
 
     srand(time(0)); // NOLINT(cert-msc51-cpp)
 
-    BattleOutcome winner = battle(ATTACKER_ARMIES, DEFENDER_ARMIES, ATTACKER_DIE_COUNT, DEFENDER_DIE_COUNT);
+    BattleOutcome winner = battle(&attacker_armies, &defender_armies, attacker_die_count, defender_die_count);
 
     // Display Results
 

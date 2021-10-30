@@ -9,15 +9,15 @@
 /**
  * Simulate a Battle
  * @param attacker_armies
- *        The number of armies the attacker has.
+ *        A pointer to an integer containing the number of armies the attacker has.
  * @param defender_armies
- *        The number of armies the defender has.
+ *        A pointer to an integer containing  number of armies the defender has.
  * @return A Player variable containing the winner
  */
-enum player battle(int attacker_armies, int defender_armies, int attacker_die_count, int defender_die_count) {
+BattleOutcome battle(int *attacker_armies, int *defender_armies, int attacker_die_count, int defender_die_count) {
 
-    if (attacker_armies < attacker_die_count + 1 ||
-        defender_armies < defender_die_count + 1)//not allowed by risk's rules
+    if (*attacker_armies < attacker_die_count + 1 ||
+        *defender_armies < defender_die_count + 1)//not allowed by risk's rules
         return ERROR;
 
     int attacker_dice[3], defender_dice[2];
@@ -35,6 +35,12 @@ enum player battle(int attacker_armies, int defender_armies, int attacker_die_co
 
     // compare
     winner = compare_highest(&attacker_dice[0], &defender_dice[0], attacker_die_count, defender_die_count);
+
+    //Update army count, because the loser loses one army.
+    if (winner == ATTACKER)
+        *defender_armies--;
+    else if (winner == DEFENDER)
+        *attacker_armies--;
 
     // return result
     return winner;
@@ -80,37 +86,37 @@ void print_int_array(int *array, int length) {
  * @param attacker_die_count
  *        An integer no greater than the length of attacker_dice
  * @param defender_die_count
- *        An integer no greater than the length of defender_dice
+ *        An integer, either 1 or 2
  * @return
- *        If there the highest elements are the same, TIE is returned.
+ *        If there the highest elements are the same, DEFENDER is returned.
  *        If the the highest element is in attacker_dice, ATTACKER is returned.
  *        If the highest element is in defender_dice, DEFENDER is return.
  */
 enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker_die_count, int defender_die_count) {
-    int attacker_max, defender_max;
-    attacker_max = find_max(&attacker_dice[0], attacker_die_count);
-    defender_max = find_max(&defender_dice[0], defender_die_count);
+    int attacker_max_index, defender_max_index;
 
-    if (attacker_max > defender_max)
+
+    attacker_max_index = find_max(&attacker_dice[0], attacker_die_count);
+    defender_max_index = find_max(&defender_dice[0], defender_die_count);
+
+    if (attacker_dice[attacker_max_index] > defender_dice[defender_max_index])
         return ATTACKER;
-    else if (defender_max > attacker_max)
-        return DEFENDER;
     else
-        return TIE;
+        return DEFENDER;
 }
 
 /**
  * Return the maximum value of array
  * @param array A pointer to an array of at least one element
  * @param length The length of that array
- * @return The value of the greatest element
+ * @return The index of the greatest element
  */
 int find_max(const int *array, int length) {
-    int max = array[0];
+    int max_index = 0;
     for (int i = 0; i < length; i++) {
-        if (array[i] > max)
-            max = array[i];
+        if (array[i] > array[max_index])
+            max_index = i;
     }
 
-    return max;
+    return max_index;
 }
