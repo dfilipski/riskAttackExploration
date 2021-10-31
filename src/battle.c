@@ -14,36 +14,37 @@
  *        A pointer to an integer containing  number of armies the defender has.
  * @return A Player variable containing the winner
  */
-BattleOutcome battle(int *attacker_armies, int *defender_armies, int attacker_die_count, int defender_die_count) {
+BattleOutcome battle(int* attacker_armies, int* defender_armies, int attacker_die_count, int defender_die_count)
+{
 
-    if (*attacker_armies < attacker_die_count + 1 ||
-        *defender_armies < defender_die_count + 1)//not allowed by risk's rules
-        return ERROR;
+	if (*attacker_armies<attacker_die_count+1 ||
+			*defender_armies<defender_die_count+1)//not allowed by risk's rules
+		return ERROR;
 
-    int attacker_dice[3], defender_dice[2];
-    enum player winner;
+	int attacker_dice[3], defender_dice[2];
+	enum player winner;
 
-    // roll attacker dice
-    for (int i = 0; i < attacker_die_count; i++) {
-        roll_dice(&attacker_dice[0], attacker_die_count);
-    }
+	// roll attacker dice
+	for (int i = 0; i<attacker_die_count; i++) {
+		roll_dice(&attacker_dice[0], attacker_die_count);
+	}
 
-    // roll defender dice
-    for (int i = 0; i < defender_die_count; i++) {
-        roll_dice(&defender_dice[0], defender_die_count);
-    }
+	// roll defender dice
+	for (int i = 0; i<defender_die_count; i++) {
+		roll_dice(&defender_dice[0], defender_die_count);
+	}
 
-    // compare
-    winner = compare_highest(&attacker_dice[0], &defender_dice[0], attacker_die_count, defender_die_count);
+	// compare
+	winner = compare_highest(&attacker_dice[0], &defender_dice[0], attacker_die_count, defender_die_count);
 
-    //Update army count, because the loser loses one army.
-    if (winner == ATTACKER)
-        *defender_armies -= 1;
-    else if (winner == DEFENDER)
-        *attacker_armies -= 1;
+	//Update army count, because the loser loses one army.
+	if (winner==ATTACKER)
+		*defender_armies -= 1;
+	else if (winner==DEFENDER)
+		*attacker_armies -= 1;
 
-    // return result
-    return winner;
+	// return result
+	return winner;
 }
 
 /**
@@ -53,10 +54,11 @@ BattleOutcome battle(int *attacker_armies, int *defender_armies, int attacker_di
  * @param die_count
  *        An integer that is >= 1 and <= the length of dice_array
  */
-void roll_dice(int *dice_array, int die_count) {
-    for (int i = 0; i < die_count; i++) {
-        dice_array[i] = rand() % 6 + 1;
-    }
+void roll_dice(int* dice_array, int die_count)
+{
+	for (int i = 0; i<die_count; i++) {
+		dice_array[i] = rand()%6+1;
+	}
 }
 
 /**
@@ -66,15 +68,16 @@ void roll_dice(int *dice_array, int die_count) {
  * @param length
  *        The length of the array
  */
-void print_int_array(int *array, int length) {
-    printf("[");
-    for (int i = 0; i < length; i++) {
-        if (i != length - 1)
-            printf("%d ", array[i]);
-        else
-            printf("%d", array[i]);
-    }
-    printf("]");
+void print_int_array(int* array, int length)
+{
+	printf("[");
+	for (int i = 0; i<length; i++) {
+		if (i!=length-1)
+			printf("%d ", array[i]);
+		else
+			printf("%d", array[i]);
+	}
+	printf("]");
 }
 
 /**
@@ -92,17 +95,17 @@ void print_int_array(int *array, int length) {
  *        If the the highest element is in attacker_dice, ATTACKER is returned.
  *        If the highest element is in defender_dice, DEFENDER is return.
  */
-enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker_die_count, int defender_die_count) {
-    int attacker_max_index, defender_max_index;
+enum player compare_highest(int* attacker_dice, int* defender_dice, int attacker_die_count, int defender_die_count)
+{
+	int attacker_max_index, defender_max_index;
 
+	attacker_max_index = find_max(&attacker_dice[0], attacker_die_count);
+	defender_max_index = find_max(&defender_dice[0], defender_die_count);
 
-    attacker_max_index = find_max(&attacker_dice[0], attacker_die_count);
-    defender_max_index = find_max(&defender_dice[0], defender_die_count);
-
-    if (attacker_dice[attacker_max_index] > defender_dice[defender_max_index])
-        return ATTACKER;
-    else
-        return DEFENDER;
+	if (attacker_dice[attacker_max_index]>defender_dice[defender_max_index])
+		return ATTACKER;
+	else
+		return DEFENDER;
 }
 
 /**
@@ -111,14 +114,15 @@ enum player compare_highest(int *attacker_dice, int *defender_dice, int attacker
  * @param length The length of that array
  * @return The index of the greatest element
  */
-int find_max(const int *array, int length) {
-    int max_index = 0;
-    for (int i = 0; i < length; i++) {
-        if (array[i] > array[max_index])
-            max_index = i;
-    }
+int find_max(const int* array, int length)
+{
+	int max_index = 0;
+	for (int i = 0; i<length; i++) {
+		if (array[i]>array[max_index])
+			max_index = i;
+	}
 
-    return max_index;
+	return max_index;
 }
 
 /**
@@ -134,31 +138,29 @@ int find_max(const int *array, int length) {
  * @param attacker_die_count Number of dice attacker rolls
  * @param defender_die_count Number of dice defender rolls
  */
-void
-simulate_war(int *win_array, int num_battles, int *pAttacker_armies, int *pDefender_armies, int attacker_die_count,
-             int defender_die_count) {
-    //Fill win_array with zeros
-    for (int i = 0; i < 2; i++) {
-        win_array[i] = 0;
-    }
+void simulate_war(int* win_array, int num_battles, int* pAttacker_armies, int* pDefender_armies, int attacker_die_count,
+		int defender_die_count)
+{
+	//Fill win_array with zeros
+	for (int i = 0; i<2; i++) {
+		win_array[i] = 0;
+	}
 
-    //Simulate Battles
-    for (int i = 0; i < num_battles; i++) {
-        BattleOutcome winner = battle(pAttacker_armies, pDefender_armies, attacker_die_count, defender_die_count);
+	//Simulate Battles
+	for (int i = 0; i<num_battles; i++) {
+		BattleOutcome winner = battle(pAttacker_armies, pDefender_armies, attacker_die_count, defender_die_count);
 
-        //record result
-        switch (winner) {
-            case ATTACKER:
-                win_array[0] += 1;
-                win_array[2] += 1;
-                break;
-            case DEFENDER:
-                win_array[1] += 1;
-                win_array[2] += 1;
-                break;
-            default: //Stop once parameters are invalid
-                return;
-        }
-    }
+		//record result
+		switch (winner) {
+		case ATTACKER: win_array[0] += 1;
+			win_array[2] += 1;
+			break;
+		case DEFENDER: win_array[1] += 1;
+			win_array[2] += 1;
+			break;
+		default: //Stop once parameters are invalid
+			return;
+		}
+	}
 
 }
