@@ -127,10 +127,10 @@ int find_max(const int* array, int length)
 
 /**
  * Simulate num_battles battles and record results in Win Array.
- * Index 0 is attacker wins. Index 1 is defender wins. Note that
- * the total number of battles that occurred may be different
- * than num_battles, because one side may lose all their armies
- * before num_battles battles have been completed.
+ * Index 0 is attacker wins. Index 1 is defender wins. Index 3
+ * is the total number of battles that occured, because one
+ * side may lose all their armies before num_battles battles
+ * have been completed.
  * @param win_array A two element array
  * @param num_battles The number of battles to simulate
  * @param pAttacker_armies Address of the attacker's army count
