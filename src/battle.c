@@ -142,7 +142,7 @@ void simulate_war(int* win_array, int num_battles, int* pAttacker_armies, int* p
 		int defender_die_count)
 {
 	//Fill win_array with zeros
-	for (int i = 0; i<2; i++) {
+	for (int i = 0; i<3; i++) {
 		win_array[i] = 0;
 	}
 
